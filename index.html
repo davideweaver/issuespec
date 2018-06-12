@@ -374,8 +374,10 @@
         }
 
         function clearJson() {
-            window.localStorage['json'] = undefined;
-            editor.setValue(defaultVal);
+            if (confirm('Are you sure you want to clear the JSON in the editor window? You can\'t undo it.')) {
+                window.localStorage['json'] = undefined;
+                editor.setValue(defaultVal);
+            }
         }
 
         function resizeEditor() {
