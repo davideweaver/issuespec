@@ -81,9 +81,9 @@
                 <td>
                     <textarea id='issuejson' style='width:600px;height:800px;'></textarea>
                     <div>
-                        <button onclick="javascript:loadJson()">Load</button>
-                        <button onclick="javascript:clearJson()">Clear</button>
-                        <span id='issuecount'></span>
+                        <button onclick="javascript:loadJson()">Update Preview</button>
+                        <button onclick="javascript:clearJson()">Clear JSON</button>
+                        <span id='issuecount' style='font-size:11px;'></span>
                     </div>
                 </td>
                 <td>
@@ -347,14 +347,20 @@
             }
         }
 
+        function updateIssueCount(length) {
+            document.getElementById('issuecount').innerText = length + ' issues found';
+        }
+
         function loadJson() {
             try {
+                updateIssueCount(0);
+
                 var text = editor.getValue();
                 if (!text) return;
                 var json = JSON.parse(text);
                 issues = json.issues;
                 if (!json.issues || !Array.isArray(json.issues)) return;
-                document.getElementById('issuecount').innerText = issues.length + ' issues';
+                updateIssueCount(issues.length);
 
                 var dropdown = document.getElementById('issuekeys');
                 dropdown.innerHTML = '';
