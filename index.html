@@ -4,6 +4,12 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/lint/lint.css" rel="stylesheet">
         <style>
             body { font-family: sans-serif; }
+            .results {
+                background-color: #f1f1f1;
+                border: 1px solid #ddd;
+                border-radius: 6px;
+                padding: 6px;
+            }
         </style>
     </head>
     <body onresize='resizeEditor()'>
@@ -54,16 +60,18 @@
                             <button onclick='javascript:changeIssue()'>reset</button>
                         </div>
                         <br>
-                        <div id='emergency'></div>
-                        <br>
-                        <div>RESULTS:</div>
-                        <div id='result'></div>
-                        <br>
-                        <div>NOTES:</div>
-                        <div id='notesd1'></div>
-                        <div id='noteso1'></div>
-                        <div id='notesd2'></div>
-                        <div id='noteso2'></div>
+                        <div class='results'>
+                            <div style='color:gray;'>RESULTS:</div>
+                            <div id='result'></div>
+                            <br>
+                            <div style='color:gray;'>NOTES:</div>
+                            <div id='notesd1'></div>
+                            <div id='noteso1'></div>
+                            <div id='notesd2'></div>
+                            <div id='noteso2'></div>
+                            <br>
+                            <div id='emergency' style='color:red;'></div>
+                        </div>
                     </td>
                 </tr>
             </table>
