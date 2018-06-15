@@ -61,6 +61,8 @@
                         </div>
                         <br>
                         <div class='results'>
+                            <div id='name' style='font-weight: bold'></div>
+                            <br>
                             <div style='color:gray;'>RESULTS:</div>
                             <div id='result'></div>
                             <br>
@@ -205,6 +207,8 @@
             setEmergency(false);
 
             // populate elements
+            document.getElementById('name').innerText = issue.name;
+
             if (issue.specifier.title) {
                 title.innerText = issue.specifier.title.toUpperCase();
             } else {
