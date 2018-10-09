@@ -1,402 +1,408 @@
 <html>
-    <head>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/codemirror.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/lint/lint.css" rel="stylesheet">
-        <style>
-            body { font-family: sans-serif; }
-            .results {
-                background-color: #f1f1f1;
-                border: 1px solid #ddd;
-                border-radius: 6px;
-                padding: 6px;
-            }
-        </style>
-    </head>
-    <body onresize='resizeEditor()'>
-        <div>
-            <table>
-                <tr>
-                    <td>
-                        <table style='width:600px;height:300px;border:1px solid black;'>
-                            <tr>
-                                <td style='text-align:center;background-color:dodgerblue;color:white;height:50px;'>
-                                    <div id='title'>TELL US MORE</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style='padding-left:100px;'>
-                                    <table>
-                                        <tr>
-                                            <td>
 
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style='height:250px;vertical-align: top;'>
-                                                <div id='notice' style='margin-bottom:8px;background-color: yellow;'></div>
-                                                <div id='label' style='margin-bottom:8px;'></div>
-                                                <div id='options' style='margin-bottom:8px;'></div>
-                                                <div id='label2' style='margin-bottom:8px;'></div>
-                                                <div id='options2' style='margin-bottom:8px;'></div>
-                                                <div id='info' style='margin-bottom:8px;'></div>
-                                                <div id='warn' style='background-color: red;color: white;'></div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style='height:50px;'>
-                                                <div>
-                                                    <button id='continue' onclick='' disabled>CONTINUE</button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td style='vertical-align: top;'>
-                        <div>
-                            <select id='issuekeys' onchange='javascript:changeIssue()' style='font-size: 14px;'></select>
-                            <button onclick='javascript:changeIssue()'>reset</button>
-                        </div>
-                        <br>
-                        <div class='results'>
-                            <div id='name' style='font-weight: bold'></div>
-                            <br>
-                            <div style='color:gray;'>RESULTS:</div>
-                            <div id='result'></div>
-                            <br>
-                            <div style='color:gray;'>NOTES:</div>
-                            <div id='notesd1'></div>
-                            <div id='noteso1'></div>
-                            <div id='notesd2'></div>
-                            <div id='noteso2'></div>
-                            <br>
-                            <div id='emergency' style='color:red;'></div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/codemirror.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/lint/lint.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        .results {
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 6px;
+        }
+    </style>
+</head>
+
+<body onresize='resizeEditor()'>
+    <div>
         <table>
             <tr>
                 <td>
-                    <textarea id='issuejson' style='width:600px;height:800px;'></textarea>
-                    <div>
-                        <button onclick="javascript:loadJson()">Update Preview</button>
-                        <button onclick="javascript:clearJson()">Clear JSON</button>
-                        <span id='issuecount' style='font-size:11px;'></span>
-                    </div>
-                </td>
-                <td>
+                    <table style='width:600px;height:300px;border:1px solid black;'>
+                        <tr>
+                            <td style='text-align:center;background-color:dodgerblue;color:white;height:50px;'>
+                                <div id='title'>TELL US MORE</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style='padding-left:100px;'>
+                                <table>
+                                    <tr>
+                                        <td>
 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style='height:250px;vertical-align: top;'>
+                                            <div id='notice' style='margin-bottom:8px;background-color: yellow;'></div>
+                                            <div id='label' style='margin-bottom:8px;'></div>
+                                            <div id='options' style='margin-bottom:8px;'></div>
+                                            <div id='label2' style='margin-bottom:8px;'></div>
+                                            <div id='options2' style='margin-bottom:8px;'></div>
+                                            <div id='info' style='margin-bottom:8px;'></div>
+                                            <div id='warn' style='background-color: red;color: white;'></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style='height:50px;'>
+                                            <div>
+                                                <button id='continue' onclick='' disabled>CONTINUE</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td style='vertical-align: top;'>
+                    <div>
+                        <select id='issuekeys' onchange='javascript:changeIssue()' style='font-size: 14px;'></select>
+                        <button onclick='javascript:changeIssue()'>reset</button>
+                    </div>
+                    <br>
+                    <div class='results'>
+                        <div id='name' style='font-weight: bold'></div>
+                        <br>
+                        <div style='color:gray;'>RESULTS:</div>
+                        <div id='result'></div>
+                        <br>
+                        <div style='color:gray;'>NOTES:</div>
+                        <div id='notesd1'></div>
+                        <div id='noteso1'></div>
+                        <div id='notesd2'></div>
+                        <div id='noteso2'></div>
+                        <br>
+                        <div id='emergency' style='color:red;'></div>
+                    </div>
                 </td>
             </tr>
         </table>
-    </body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/codemirror.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/mode/javascript/javascript.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jshint/2.9.5/jshint.min.js"></script>
-    <script src="https://rawgithub.com/zaach/jsonlint/79b553fb65c192add9066da64043458981b3972b/lib/jsonlint.js"></script>
-    <script src="https://unpkg.com/csslint@1.0.5/dist/csslint.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/lint/lint.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/lint/css-lint.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/lint/json-lint.js"></script>
-    <script>
+    </div>
+    <table>
+        <tr>
+            <td>
+                <textarea id='issuejson' style='width:600px;height:800px;'></textarea>
+                <div>
+                    <button onclick="javascript:loadJson()">Update Preview</button>
+                    <button onclick="javascript:clearJson()">Clear JSON</button>
+                    <span id='issuecount' style='font-size:11px;'></span>
+                </div>
+            </td>
+            <td>
 
-        var defaultVal = '{\n';
-        defaultVal += '\t"issues": [\n';
-        defaultVal += '\t]\n';
-        defaultVal += '}\n';
-        var currentVal = window.localStorage['json'] || defaultVal;
-        var editor = CodeMirror.fromTextArea(document.getElementById("issuejson"), {
-            lineNumbers: true,
-            mode: 'application/json',
-            lint: true,
-            gutters: ["CodeMirror-lint-markers"]
-        });
+            </td>
+        </tr>
+    </table>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/codemirror.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/mode/javascript/javascript.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jshint/2.9.5/jshint.min.js"></script>
+<script src="https://rawgithub.com/zaach/jsonlint/79b553fb65c192add9066da64043458981b3972b/lib/jsonlint.js"></script>
+<script src="https://unpkg.com/csslint@1.0.5/dist/csslint.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/lint/lint.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/lint/css-lint.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/lint/json-lint.js"></script>
+<script>
 
-        editor.setValue(currentVal);
-        editor.on('change', function (cm) {
-            window.localStorage.setItem('json', cm.getValue());
-        });
+    var defaultVal = '{\n';
+    defaultVal += '\t"issues": [\n';
+    defaultVal += '\t]\n';
+    defaultVal += '}\n';
+    var currentVal = window.localStorage['json'] || defaultVal;
+    var editor = CodeMirror.fromTextArea(document.getElementById("issuejson"), {
+        lineNumbers: true,
+        mode: 'application/json',
+        lint: true,
+        gutters: ["CodeMirror-lint-markers"]
+    });
 
-        var issues;
+    editor.setValue(currentVal);
+    editor.on('change', function (cm) {
+        window.localStorage.setItem('json', cm.getValue());
+    });
 
-        function setContinueDisabled() {
-            document.getElementById("continue").disabled = true;
+    var issues;
+
+    function setContinueDisabled() {
+        document.getElementById("continue").disabled = true;
+    }
+
+    function setContinueButton(serviceCodeId, toIssueId) {
+        var button = document.getElementById("continue");
+        button.disabled = false;
+        if (serviceCodeId) {
+            result.innerText = 'serviceCodeId=' + serviceCodeId;
+            button.onclick = function () {
+                alert('serviceCodeId=' + serviceCodeId);
+            }
+        } else if (toIssueId) {
+            result.innerText = 'toIssueId=' + toIssueId;
+            button.onclick = function () {
+                alert('toIssueId=' + toIssueId);
+            }
+        } else {
+            result.innerText = 'no result!';
+            button.onclick = function () {
+                alert('issue must conclude with either a serviceCodeId, toIssueId or a disabled Continue button. this is not the current case.');
+            }
+        }
+    }
+
+    function setEmergency(on) {
+        if (!on && getCurrentIssue().is_emergency === false) {
+            emergency.innerText = '';
+        } else {
+            emergency.innerText = 'EMERGENCY';
+        }
+    }
+
+    function getCurrentIssue() {
+        var dropdown = document.getElementById('issuekeys');
+        var issue = issues[dropdown.value];
+        return issue;
+    }
+
+    function boldText(text) {
+        var bold = /\*\*(\S(.*?\S)?)\*\*/gm;
+        var html = text.replace(bold, '<strong>$1</strong>');
+        return html;
+    }
+
+    function appendNote(key, note) {
+        if (!note) {
+            note = '';
+        }
+        if (key == 'd1') {
+            notesd1.innerText = note;
+            noteso1.innerText = '';
+            notesd2.innerText = '';
+            noteso2.innerText = '';
+        }
+        if (key == 'o1') {
+            noteso1.innerText = note;
+            notesd2.innerText = '';
+            noteso2.innerText = '';
+        }
+        if (key == 'd2') {
+            notesd2.innerText = note;
+            noteso2.innerText = '';
+        }
+        if (key == 'o2') {
+            noteso2.innerText = note;
+        }
+    }
+
+    function changeIssue() {
+        setContinueDisabled();
+
+        var issue = getCurrentIssue();
+
+        info.innerHTML = '';
+        label2.innerText = '';
+        options2.innerHTML = '';
+        result.innerText = '';
+
+        appendNote('d1', issue.specifier.details.note);
+
+        setEmergency(false);
+
+        // populate elements
+        document.getElementById('name').innerText = issue.name;
+
+        if (issue.specifier.title) {
+            title.innerText = issue.specifier.title.toUpperCase();
+        } else {
+            title.innerText = 'TELL US MORE';
         }
 
-        function setContinueButton(serviceCodeId, toIssueId) {
-            var button = document.getElementById("continue");
-            button.disabled = false;
-            if (serviceCodeId) {
-                result.innerText = 'serviceCodeId=' + serviceCodeId;
-                button.onclick = function () {
-                    alert('serviceCodeId=' + serviceCodeId);
-                }
-            } else if (toIssueId) {
-                result.innerText = 'toIssueId=' + toIssueId;
-                button.onclick = function () {
-                    alert('toIssueId=' + toIssueId);
-                }
+        label.innerText = issue.specifier.details.label || '';
+        notice.innerText = issue.specifier.details.notice || '';
+        info.innerHTML = boldText(issue.specifier.details.info || '');
+        warn.innerText = issue.specifier.details.warn || '';
+
+        options.innerHTML = '';
+        if (issue.specifier.details.serviceCodeId || issue.specifier.details.toIssueId) {
+            setContinueButton(issue.specifier.details.serviceCodeId, issue.specifier.details.toIssueId);
+        } else if (issue.specifier.details.options) {
+            for (var i = 0; i < issue.specifier.details.options.length; i++) {
+                var option = issue.specifier.details.options[i];
+                var button = document.createElement('button');
+                button.style.border = '1px solid dodgerblue';
+                button.style.padding = '10px';
+                button.style.paddingRight = '15px';
+                button.style.paddingLeft = '15px';
+                button.style.borderRadius = '20px';
+                button.style.marginRight = '10px';
+                button.id = 'button1-' + i;
+                button.innerText = option.label;
+                button.onclick = initialOptionsClickHandler.bind(option, i, issue.specifier.details.options.length);
+                options.appendChild(button);
+            }
+        } else {
+            // should we enable the continue button
+            setContinueDisabled(false);
+        }
+    }
+
+    function initialOptionsClickHandler(index, buttonsLength) {
+        setContinueDisabled();
+
+        // clear secondary
+        label2.innerText = '';
+        options2.innerHTML = '';
+        info.innerHTML = boldText(getCurrentIssue().specifier.details.info || '');
+
+        // set button colors
+        for (var i = 0; i < buttonsLength; i++) {
+            var button = document.getElementById('button1-' + i);
+            if (i === index) {
+                button.style.backgroundColor = 'dodgerblue';
+                button.style.color = 'white';
             } else {
-                result.innerText = 'no result!';
-                button.onclick = function () {
-                    alert('issue must conclude with either a serviceCodeId, toIssueId or a disabled Continue button. this is not the current case.');
-                }
+                button.style.backgroundColor = 'white';
+                button.style.color = 'black';
             }
         }
 
-        function setEmergency(on) {
-            if (!on && getCurrentIssue().is_emergency === false) {
-                emergency.innerText = '';
-            } else {
-                emergency.innerText = 'EMERGENCY';
+        setEmergency(this.isEmergency);
+        appendNote('o1', this.note);
+
+        if (this.nextValue) {
+            showNextOptions(this.nextValue);
+        } else if (this.serviceCodeId || this.toIssueId) {
+            setContinueButton(this.serviceCodeId, this.toIssueId);
+        }
+    }
+
+    function showNextOptions(nextValue) {
+        var issue = getCurrentIssue();
+        if (!issue.specifier.next || !Array.isArray(issue.specifier.next)) {
+            alert('Issue does not have a next section that is an Array type');
+            return;
+        }
+
+        // find next
+        var next;
+        for (var i = 0; i < issue.specifier.next.length; i++) {
+            if (issue.specifier.next[i].value === nextValue) {
+                next = issue.specifier.next[i];
+                break;
             }
         }
 
-        function getCurrentIssue() {
+        if (!next) {
+            alert('Issue does not have a next element matching value ' + nextValue);
+            return;
+        }
+
+        info.innerHTML = '';
+
+        setEmergency(next.details.isEmergency);
+        appendNote('d2', next.details.note);
+
+        label2.innerText = next.details.label;
+        info.innerHTML = boldText(next.details.info || '');
+
+        options2.innerHTML = '';
+        if (next.details.options) {
+            for (var i = 0; i < next.details.options.length; i++) {
+                var option = next.details.options[i];
+                var button = document.createElement('button');
+                button.style.border = '1px solid dodgerblue';
+                button.style.padding = '10px';
+                button.style.paddingRight = '15px';
+                button.style.paddingLeft = '15px';
+                button.style.borderRadius = '20px';
+                button.style.marginRight = '10px';
+                button.id = 'button2-' + i;
+                button.innerText = option.label;
+                button.onclick = secondaryOptionsClickHandler.bind(option, i, next.details.options.length);
+                options2.appendChild(button);
+            }
+        } else {
+            // should we enable the continue button
+            setContinueDisabled(false);
+        }
+    }
+
+    function secondaryOptionsClickHandler(index, buttonsLength) {
+        setContinueDisabled();
+
+        setEmergency(this.isEmergency);
+        appendNote('o2', this.note);
+
+        // set button colors
+        for (var i = 0; i < buttonsLength; i++) {
+            var button = document.getElementById('button2-' + i);
+            if (i === index) {
+                button.style.backgroundColor = 'dodgerblue';
+                button.style.color = 'white';
+            } else {
+                button.style.backgroundColor = 'white';
+                button.style.color = 'black';
+            }
+        }
+
+        if (this.nextValue) {
+            alert('next options cannot have a nextValue');
+            return;
+        } else if (this.serviceCodeId || this.toIssueId) {
+            setContinueButton(this.serviceCodeId, this.toIssueId);
+        }
+    }
+
+    function updateIssueCount(length) {
+        document.getElementById('issuecount').innerText = length + ' issues found';
+    }
+
+    function loadJson() {
+        try {
+            updateIssueCount(0);
+
+            var text = editor.getValue();
+            if (!text) return;
+            var json = JSON.parse(text);
+            issues = json.issues;
+            if (!json.issues || !Array.isArray(json.issues)) return;
+            updateIssueCount(issues.length);
+
             var dropdown = document.getElementById('issuekeys');
-            var issue = issues[dropdown.value];
-            return issue;
+            dropdown.innerHTML = '';
+            for (var i = 0; i < issues.length; i++) {
+                var option = document.createElement("option");
+                option.text = issues[i].key;
+                option.value = i;
+                dropdown.add(option, dropdown.options[null]);
+            }
+
+            if (issues.length) {
+                changeIssue();
+            }
+        } catch (e) {
+            alert(e);
         }
+    }
 
-        function boldText(text){
-            var bold = /\*\*(\S(.*?\S)?)\*\*/gm;
-            var html = text.replace(bold, '<strong>$1</strong>');
-            return html;
+    function clearJson() {
+        if (confirm('Are you sure you want to clear the JSON in the editor window? You can\'t undo it.')) {
+            window.localStorage['json'] = undefined;
+            editor.setValue(defaultVal);
+            loadJson();
         }
+    }
 
-        function appendNote(key, note) {
-            if (!note) {
-                note = '';
-            }
-            if (key == 'd1') {
-                notesd1.innerText = note;
-                noteso1.innerText = '';
-                notesd2.innerText = '';
-                noteso2.innerText = '';
-            }
-            if (key == 'o1') {
-                noteso1.innerText = note;
-                notesd2.innerText = '';
-                noteso2.innerText = '';
-            }
-            if (key == 'd2') {
-                notesd2.innerText = note;
-                noteso2.innerText = '';
-            }
-            if (key == 'o2') {
-                noteso2.innerText = note;
-            }
-        }
+    function resizeEditor() {
+        console.log(window.innerHeight);
+        editor.setSize(window.innerWidth - 40, window.innerHeight - 420)
+    }
 
-        function changeIssue() {
-            setContinueDisabled();
+    loadJson();
+    resizeEditor();
+</script>
 
-            var issue = getCurrentIssue();
-
-            info.innerHTML = '';
-            label2.innerText = '';
-            options2.innerHTML = '';
-            result.innerText = '';
-
-            appendNote('d1', issue.specifier.details.note);
-
-            setEmergency(false);
-
-            // populate elements
-            document.getElementById('name').innerText = issue.name;
-
-            if (issue.specifier.title) {
-                title.innerText = issue.specifier.title.toUpperCase();
-            } else {
-                title.innerText = 'TELL US MORE';
-            }
-
-            label.innerText = issue.specifier.details.label || '';
-            notice.innerText = issue.specifier.details.notice || '';
-            info.innerHTML = boldText(issue.specifier.details.info || '');
-            warn.innerText = issue.specifier.details.warn || '';
-
-            options.innerHTML = '';
-            if (issue.specifier.details.serviceCodeId || issue.specifier.details.toIssueId) {
-                setContinueButton(issue.specifier.details.serviceCodeId, issue.specifier.details.toIssueId);
-            } else if (issue.specifier.details.options) {
-                for (var i=0; i<issue.specifier.details.options.length; i++) {
-                    var option = issue.specifier.details.options[i];
-                    var button = document.createElement('button');
-                    button.style.border = '1px solid dodgerblue';
-                    button.style.padding = '10px';
-                    button.style.paddingRight = '15px';
-                    button.style.paddingLeft = '15px';
-                    button.style.borderRadius = '20px';
-                    button.style.marginRight = '10px';
-                    button.id = 'button1-' + i;
-                    button.innerText = option.label;
-                    button.onclick = initialOptionsClickHandler.bind(option, i, issue.specifier.details.options.length);
-                    options.appendChild(button);
-                }
-            } else {
-                // should we enable the continue button
-                setContinueDisabled(false);
-            }
-        }
-
-        function initialOptionsClickHandler(index, buttonsLength) {
-            setContinueDisabled();
-
-            // clear secondary
-            label2.innerText = '';
-            options2.innerHTML = '';
-            info.innerHTML = boldText(getCurrentIssue().specifier.details.info || '');
-
-            // set button colors
-            for (var i=0; i<buttonsLength; i++) {
-                var button = document.getElementById('button1-' + i);
-                if (i === index) {
-                    button.style.backgroundColor = 'dodgerblue';
-                    button.style.color = 'white';
-                } else {
-                    button.style.backgroundColor = 'white';
-                    button.style.color = 'black';
-                }
-            }
-
-            setEmergency(this.isEmergency);
-            appendNote('o1', this.note);
-
-            if (this.nextValue) {
-                showNextOptions(this.nextValue);
-            } else if (this.serviceCodeId || this.toIssueId) {
-                setContinueButton(this.serviceCodeId, this.toIssueId);
-            }
-        }
-
-        function showNextOptions(nextValue) {
-            var issue = getCurrentIssue();
-            if (!issue.specifier.next || !Array.isArray(issue.specifier.next)) {
-                alert('Issue does not have a next section that is an Array type');
-                return;
-            }
-
-            // find next
-            var next;
-            for (var i=0; i<issue.specifier.next.length; i++) {
-                if (issue.specifier.next[i].value === nextValue) {
-                    next = issue.specifier.next[i];
-                    break;
-                }
-            }
-
-            if (!next) {
-                alert('Issue does not have a next element matching value ' + nextValue);
-                return;
-            }
-
-            info.innerHTML = '';
-
-            setEmergency(next.details.isEmergency);
-            appendNote('d2', next.details.note);
-
-            label2.innerText = next.details.label;
-            info.innerHTML = boldText(next.details.info || '');
-
-            options2.innerHTML = '';
-            if (next.details.options) {
-                for (var i=0; i<next.details.options.length; i++) {
-                    var option = next.details.options[i];
-                    var button = document.createElement('button');
-                    button.style.border = '1px solid dodgerblue';
-                    button.style.padding = '10px';
-                    button.style.paddingRight = '15px';
-                    button.style.paddingLeft = '15px';
-                    button.style.borderRadius = '20px';
-                    button.style.marginRight = '10px';
-                    button.id = 'button2-' + i;
-                    button.innerText = option.label;
-                    button.onclick = secondaryOptionsClickHandler.bind(option, i, issue.specifier.details.options.length);
-                    options2.appendChild(button);
-                }
-            } else {
-                // should we enable the continue button
-                setContinueDisabled(false);
-            }
-        }
-
-        function secondaryOptionsClickHandler(index, buttonsLength) {
-            setContinueDisabled();
-
-            setEmergency(this.isEmergency);
-            appendNote('o2', this.note);
-
-            // set button colors
-            for (var i=0; i<buttonsLength; i++) {
-                var button = document.getElementById('button2-' + i);
-                if (i === index) {
-                    button.style.backgroundColor = 'dodgerblue';
-                    button.style.color = 'white';
-                } else {
-                    button.style.backgroundColor = 'white';
-                    button.style.color = 'black';
-                }
-            }
-
-            if (this.nextValue) {
-                alert('next options cannot have a nextValue');
-                return;
-            } else if (this.serviceCodeId || this.toIssueId) {
-                setContinueButton(this.serviceCodeId, this.toIssueId);
-            }
-        }
-
-        function updateIssueCount(length) {
-            document.getElementById('issuecount').innerText = length + ' issues found';
-        }
-
-        function loadJson() {
-            try {
-                updateIssueCount(0);
-
-                var text = editor.getValue();
-                if (!text) return;
-                var json = JSON.parse(text);
-                issues = json.issues;
-                if (!json.issues || !Array.isArray(json.issues)) return;
-                updateIssueCount(issues.length);
-
-                var dropdown = document.getElementById('issuekeys');
-                dropdown.innerHTML = '';
-                for (var i=0; i<issues.length; i++) {
-                    var option = document.createElement("option");
-                    option.text = issues[i].key;
-                    option.value = i;
-                    dropdown.add(option, dropdown.options[null]);
-                }
-
-                if (issues.length) {
-                    changeIssue();
-                }
-            } catch (e) {
-                alert(e);
-            }
-        }
-
-        function clearJson() {
-            if (confirm('Are you sure you want to clear the JSON in the editor window? You can\'t undo it.')) {
-                window.localStorage['json'] = undefined;
-                editor.setValue(defaultVal);
-                loadJson();
-            }
-        }
-
-        function resizeEditor() {
-            console.log(window.innerHeight);
-            editor.setSize(window.innerWidth - 40, window.innerHeight - 420)
-        }
-
-        loadJson();
-        resizeEditor();
-    </script>
 </html>
